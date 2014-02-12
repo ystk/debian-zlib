@@ -6,6 +6,9 @@
  ZLIB_1.2.2.4@ZLIB_1.2.2.4 1:1.2.2.4
  ZLIB_1.2.3.3@ZLIB_1.2.3.3 1:1.2.3.4
  ZLIB_1.2.3.4@ZLIB_1.2.3.4 1:1.2.3.4
+ ZLIB_1.2.3.5@ZLIB_1.2.3.5 1:1.2.6
+ ZLIB_1.2.5.1@ZLIB_1.2.5.1 1:1.2.6
+ ZLIB_1.2.5.2@ZLIB_1.2.5.2 1:1.2.6
  adler32@Base 1:1.1.4
  adler32_combine@ZLIB_1.2.2 1:1.2.2
  compress2@Base 1:1.1.4
@@ -20,21 +23,29 @@
  deflateInit2_@Base 1:1.1.4
  deflateInit_@Base 1:1.1.4
  deflateParams@Base 1:1.1.4
+ deflatePending@ZLIB_1.2.5.1 1:1.2.6
  deflatePrime@ZLIB_1.2.0.8 1:1.2.0.8
  deflateReset@Base 1:1.1.4
+ deflateResetKeep@ZLIB_1.2.5.2 1:1.2.6
  deflateSetDictionary@Base 1:1.1.4
  deflateSetHeader@ZLIB_1.2.2 1:1.2.2
  deflateTune@ZLIB_1.2.2.3 1:1.2.2.3
  get_crc_table@Base 1:1.1.4
+ gzbuffer@ZLIB_1.2.3.5 1:1.2.6
  gzclearerr@ZLIB_1.2.0.2 1:1.2.0.2
  gzclose@Base 1:1.1.4
+ gzclose_r@ZLIB_1.2.3.5 1:1.2.6
+ gzclose_w@ZLIB_1.2.3.5 1:1.2.6
  gzdirect@ZLIB_1.2.2.3 1:1.2.2.3
  gzdopen@Base 1:1.1.4
  gzeof@Base 1:1.1.4
  gzerror@Base 1:1.1.4
+ gzflags@ZLIB_1.2.5.2 1:1.2.6
  gzflush@Base 1:1.1.4
  gzgetc@Base 1:1.1.4
+ gzgetc_@ZLIB_1.2.5.2 1:1.2.6
  gzgets@Base 1:1.1.4
+ gzoffset@ZLIB_1.2.3.5 1:1.2.6
  gzopen@Base 1:1.1.4
  gzprintf@Base 1:1.1.4
  gzputc@Base 1:1.1.4
@@ -55,6 +66,7 @@
  inflateGetHeader@ZLIB_1.2.2 1:1.2.2
  inflateInit2_@Base 1:1.1.4
  inflateInit_@Base 1:1.1.4
+ inflateResetKeep@ZLIB_1.2.5.2 1:1.2.6
  inflateMark@ZLIB_1.2.3.4 1:1.2.3.4
  inflatePrime@ZLIB_1.2.2.4 1:1.2.2.4
  inflateReset2@ZLIB_1.2.3.4 1:1.2.3.4

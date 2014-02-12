@@ -1,5 +1,5 @@
 usr/include/*
-usr/lib/libz.a
-usr/lib/libz.so
+usr/lib/*/libz.a
+usr/lib/*/libz.so
 usr/share/man/man3/*
-usr/lib/pkgconfig/zlib.pc
+usr/lib/*/pkgconfig/zlib.pc

@@ -1,3 +1,122 @@
+zlib (1:1.2.7.dfsg-13) unstable; urgency=low
+
+  * Yet more s390x cleanup.  Thanks to the s390x porters for thei
+    prompt an efficient buildd monitoring (closes: #678511).
+
+ -- Mark Brown <broonie@debian.org>  Fri, 22 Jun 2012 16:55:56 +0100
+
+zlib (1:1.2.7.dfsg-12) unstable; urgency=low
+
+  * Clean up breakage from binnmu since with multiarch binnmus of zlib
+    and other multiarch enabled library packages aren't actually
+    installable.  Hopefully the multiarch people will get round to
+    cleaning up the infrastructure at some point (closes: #678172).
+
+ -- Mark Brown <broonie@debian.org>  Wed, 20 Jun 2012 10:00:42 +0100
+
+zlib (1:1.2.7.dfsg-11) unstable; urgency=low
+
+  * Third time lucky.  I love double negative logic on strings.  It's a
+    shame the patch for s390x didn't take care of s390...
+
+ -- Mark Brown <broonie@debian.org>  Tue, 22 May 2012 14:07:04 +0100
+
+zlib (1:1.2.7.dfsg-10) unstable; urgency=low
+
+  * Nope, here we go again... 
+
+ -- Mark Brown <broonie@debian.org>  Tue, 22 May 2012 11:22:36 +0100
+
+zlib (1:1.2.7.dfsg-9) unstable; urgency=low
+
+  * Let's try a different bodge for s390...
+
+ -- Mark Brown <broonie@debian.org>  Tue, 22 May 2012 10:07:49 +0100
+
+zlib (1:1.2.7.dfsg-8) unstable; urgency=low
+
+  * Yet another special case for s390.
+
+ -- Mark Brown <broonie@debian.org>  Mon, 21 May 2012 23:58:53 +0100
+
+zlib (1:1.2.7.dfsg-7) unstable; urgency=low
+
+  * Fix cross 32 builds.
+
+ -- Mark Brown <broonie@debian.org>  Mon, 21 May 2012 15:20:02 +0100
+
+zlib (1:1.2.7.dfsg-6) unstable; urgency=low
+
+  * Pass LDFLAGS to minizip too, but don't bother with TEST_LDFLAGS
+    for the main build since it accomplishes nothing (closes: #672310).
+  * Disallow simutaneous 64 and 32 bit cross package builds.
+
+ -- Mark Brown <broonie@debian.org>  Mon, 21 May 2012 10:25:15 +0100
+
+zlib (1:1.2.7.dfsg-5) unstable; urgency=low
+
+  * s390x doesn't actually have 32 bit, only 31 bit, and making the
+    compiler options consistent is too hard. 
+
+ -- Mark Brown <broonie@debian.org>  Sun, 20 May 2012 22:55:16 +0100
+
+zlib (1:1.2.7.dfsg-4) unstable; urgency=low
+
+  * Move primary shared library to /lib for wpa_supplicant (closes: #591013).
+
+ -- Mark Brown <broonie@debian.org>  Sun, 20 May 2012 16:39:00 +0100
+
+zlib (1:1.2.7.dfsg-3) unstable; urgency=low
+
+  * Clean up ironic breakage in patch for hardening (closes: #672310).
+  * Support biarch on s390x (closes: #637898).
+
+ -- Mark Brown <broonie@debian.org>  Sun, 20 May 2012 16:17:27 +0100
+
+zlib (1:1.2.7.dfsg-2) unstable; urgency=low
+
+  * Enable hardening flags, yet another release goal which we've
+    suddenly decided to start work on close to the end of the release
+    cycle.  Patch from Moritz Mühlenhoff (closes: #672310).
+
+ -- Mark Brown <broonie@debian.org>  Sat, 19 May 2012 19:52:14 +0100
+
+zlib (1:1.2.7.dfsg-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Mark Brown <broonie@debian.org>  Thu, 03 May 2012 10:08:05 +0100
+
+zlib (1:1.2.6.dfsg-2) unstable; urgency=low
+
+  * Break texlive-binaries before 2009-12 due to gzeof() behaviour
+    change (closes: #659681).
+
+ -- Mark Brown <broonie@debian.org>  Thu, 23 Feb 2012 23:28:27 +0000
+
+zlib (1:1.2.6.dfsg-1) unstable; urgency=low
+
+  * New upstream release.
+  * OMG!!!!! MULTIARCH!!!#!!! (closes: #569697).
+  * Break older libxml (closes: #589134).
+  * Drop bzr repo, it's adding nothing and painful to use.
+
+ -- Mark Brown <broonie@debian.org>  Sun, 12 Feb 2012 02:05:41 +0000
+
+zlib (1:1.2.5.dfsg-1) experimental; urgency=low
+
+   * New upstream release.
+
+ -- Mark Brown <broonie@debian.org>  Thu, 13 May 2010 11:21:01 +0100
+
+zlib (1:1.2.3.5.dfsg-1) experimental; urgency=low
+
+   * New upstream release.
+   * Remove most of the contrib directory so we don't have to waste time
+     writing a copyright file for code we don't build (closes: #561432).
+
+ -- Mark Brown <broonie@debian.org>  Sun, 10 Jan 2010 22:27:09 +0000
+
 zlib (1:1.2.3.4.dfsg-3) unstable; urgency=low
 
   * Only check for EOF on transparent streams if we have done a zero

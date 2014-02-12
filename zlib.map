@@ -14,6 +14,8 @@ ZLIB_1.2.0 {
     zcalloc;
     zcfree;
     z_errmsg;
+    gz_error;
+    gz_intmax;
     _*;
 };
 
@@ -44,6 +46,11 @@ ZLIB_1.2.2.4 {
 } ZLIB_1.2.2.3;
 
 ZLIB_1.2.3.3 {
+    adler32_combine64;
+    crc32_combine64;
+    gzopen64;
+    gzseek64;
+    gztell64;
     inflateUndermine;
 } ZLIB_1.2.2.4;
 
@@ -51,3 +58,21 @@ ZLIB_1.2.3.4 {
     inflateReset2;
     inflateMark;
 } ZLIB_1.2.3.3;
+
+ZLIB_1.2.3.5 {
+    gzbuffer;
+    gzoffset;
+    gzoffset64;
+    gzclose_r;
+    gzclose_w;
+} ZLIB_1.2.3.4;
+
+ZLIB_1.2.5.1 {
+    deflatePending;
+} ZLIB_1.2.3.5;
+
+ZLIB_1.2.5.2 {
+    deflateResetKeep;
+    gzgetc_;
+    inflateResetKeep;
+} ZLIB_1.2.5.1;

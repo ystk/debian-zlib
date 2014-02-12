@@ -1,5 +1,6 @@
- adler32_combine64@Base 1:1.2.3.3.dfsg
- crc32_combine64@Base 1:1.2.3.3.dfsg
- gzopen64@Base 1:1.2.3.3.dfsg
- gzseek64@Base 1:1.2.3.3.dfsg
- gztell64@Base 1:1.2.3.3.dfsg
+ adler32_combine64@ZLIB_1.2.3.3 1:1.2.3.3
+ crc32_combine64@ZLIB_1.2.3.3 1:1.2.3.3
+ gzoffset64@ZLIB_1.2.3.5 1:1.2.6
+ gzopen64@ZLIB_1.2.3.3 1:1.2.3.3
+ gzseek64@ZLIB_1.2.3.3 1:1.2.3.3
+ gztell64@ZLIB_1.2.3.3 1:1.2.3.3

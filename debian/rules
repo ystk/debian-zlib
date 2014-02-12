@@ -15,8 +15,10 @@ DEB_BUILD_GNU_TYPE  ?= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 DEB_HOST_GNU_TYPE   ?= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 DEB_HOST_ARCH       ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 DEB_HOST_ARCH_OS    ?= $(shell dpkg-architecture -qDEB_HOST_GNU_OS)
+DEB_HOST_MULTIARCH  ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
-CFLAGS = -Wall -g -D_REENTRANT
+CFLAGS = `dpkg-buildflags --get CFLAGS` `dpkg-buildflags --get CPPFLAGS` -Wall -D_REENTRANT
+LDFLAGS = `dpkg-buildflags --get LDFLAGS`
 
 # binutils doesn't supply the prefixed version normally like GCC does so
 # we can't just unconditionally use DEB_HOST_GNU_TYPE-ar
@@ -32,7 +34,22 @@ else
 	CFLAGS += -O3
 endif
 
+32-ARCHS=amd64 ppc64 kfreebsd-amd64 s390x
 64-ARCHS=s390 sparc i386 powerpc mips mipsel
+
+ifneq (,$(findstring $(DEB_HOST_ARCH), $(32-ARCHS)))
+EXTRA_INSTALL=install32
+EXTRA_BUILD=build32-stamp
+# s390x fails at compatibility.
+ifneq (,$(findstring $(DEB_HOST_ARCH), s390x))
+m32=-m31
+else
+m32=-m32
+endif
+endif
+
+ifneq (,$(findstring s390x, $(DEB_HOST_ARCH)))
+else
 ifneq (,$(findstring $(DEB_HOST_ARCH), $(64-ARCHS)))
 EXTRA_INSTALL=install64
 EXTRA_BUILD=build64-stamp
@@ -43,12 +60,6 @@ else
 m64=-m64
 endif
 endif
-
-32-ARCHS=amd64 ppc64 kfreebsd-amd64
-ifneq (,$(findstring $(DEB_HOST_ARCH), $(32-ARCHS)))
-EXTRA_INSTALL=install32
-EXTRA_BUILD=build32-stamp
-m32=-m32
 endif
 
 N32-ARCHS=mips mipsel
@@ -63,15 +74,14 @@ ifneq (,$(findstring $(DEB_HOST_ARCH), $(UNALIGNED_ARCHS)))
 CFLAGS+=-DUNALIGNED_OK
 endif
 
-COPYLIST=*.h *.c *.in zlib.map configure zlib.3
+COPYLIST=*.h *.c *.in zlib.map configure zlib.3 test
 
 configure-stamp: configure
 	dh_testdir
 
 	if [ ! -f Makefile.stash ]; then cp Makefile Makefile.stash ; fi
-	if [ ! -f zlibdefs.h.stash ]; then cp zlibdefs.h zlibdefs.h.stash ; fi
 
-	AR=$(AR) CC="$(DEB_HOST_GNU_TYPE)-gcc" CFLAGS="$(CFLAGS)" uname=GNU ./configure --shared --prefix=/usr
+	AR=$(AR) CC="$(DEB_HOST_GNU_TYPE)-gcc" CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" uname=GNU ./configure --shared --prefix=/usr --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
 
 	touch $@
 
@@ -79,9 +89,9 @@ configure64-stamp: configure
 	dh_testdir
 
 	mkdir -p debian/64
-	cp $(COPYLIST) debian/64
+	cp -r $(COPYLIST) debian/64
 	cd debian/64 && AR=$(AR) CC="$(DEB_HOST_GNU_TYPE)-gcc $(m64)" \
-	    CFLAGS="$(CFLAGS)" \
+	    CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" \
 	    uname=GNU ./configure --shared --prefix=/usr  --libdir=\$${prefix}/usr/lib64
 	touch $@
 
@@ -89,9 +99,9 @@ configure32-stamp: configure
 	dh_testdir
 
 	mkdir -p debian/32
-	cp $(COPYLIST) debian/32
+	cp -r $(COPYLIST) debian/32
 	cd debian/32 && AR=$(AR) CC="$(DEB_HOST_GNU_TYPE)-gcc $(m32)" \
-	    CFLAGS="$(CFLAGS)" \
+	    CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" \
 	    uname=GNU ./configure --shared --prefix=/usr --libdir=\$${prefix}/usr/lib32
 	touch $@
 
@@ -99,9 +109,9 @@ configuren32-stamp: configure
 	dh_testdir
 
 	mkdir -p debian/n32
-	cp $(COPYLIST) debian/n32
+	cp -r $(COPYLIST) debian/n32
 	cd debian/n32 && AR=$(AR) CC="$(DEB_HOST_GNU_TYPE)-gcc $(mn32)" \
-	    CFLAGS="$(CFLAGS)" \
+	    CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)" \
 	    uname=GNU ./configure --shared --prefix=/usr --libdir=\$${prefix}/usr/lib32
 	touch $@
 
@@ -110,7 +120,7 @@ build-stamp: configure-stamp
 	dh_testdir
 
 	$(MAKE)
-	$(MAKE) CC=$(DEB_HOST_GNU_TYPE)-gcc OPT="$(CFLAGS)" -C contrib/minizip
+	$(MAKE) CC=$(DEB_HOST_GNU_TYPE)-gcc CFLAGS="-I../.. $(CFLAGS)" LDFLAGS="$(LDFLAGS)" -C contrib/minizip
 	-$(MAKE) test
 
 	touch $@
@@ -154,6 +164,10 @@ install: build
 
 	$(MAKE) prefix=$(CURDIR)/debian/tmp/usr install
 
+	install -d debian/tmp/lib/$(DEB_HOST_MULTIARCH)
+	mv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libz.so.* debian/tmp/lib/$(DEB_HOST_MULTIARCH)
+	ln -sf /lib/$(DEB_HOST_MULTIARCH)/$$(readlink debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libz.so) debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libz.so
+
 install64: install build64-stamp
 	$(MAKE) -C debian/64 prefix=$(CURDIR)/debian/tmp install
 
@@ -185,11 +199,13 @@ binary-arch: build install $(EXTRA_INSTALL)
 	dh_compress -s
 	dh_fixperms -s
 	dh_makeshlibs -pzlib1g -V"zlib1g (>= 1:1.2.3.3.dfsg-1)" --add-udeb=zlib1g-udeb
+ifneq (,$(findstring $(DEB_HOST_ARCH), $(32-ARCHS)))
+	dh_makeshlibs -plib32z1 -V"lib32z1 (>= 1:1.2.3.3.dfsg-1)"
+endif
+ifneq (,$(findstring $(DEB_HOST_ARCH), $(32-ARCHS)))
 ifneq (,$(findstring $(DEB_HOST_ARCH), $(64-ARCHS)))
 	dh_makeshlibs -plib64z1 -V"lib64z1 (>= 1:1.2.3.3.dfsg-1)"
 endif
-ifneq (,$(findstring $(DEB_HOST_ARCH), $(32-ARCHS)))
-	dh_makeshlibs -plib32z1 -V"lib32z1 (>= 1:1.2.3.3.dfsg-1)"
 endif
 ifneq (,$(findstring $(DEB_HOST_ARCH), $(N32-ARCHS)))
 	dh_makeshlibs -plibn32z1 -V"libn32z1 (>= 1:1.2.3.3.dfsg-1)"
