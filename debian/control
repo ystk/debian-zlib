@@ -2,9 +2,9 @@ Source: zlib
 Section: libs
 Priority: optional
 Maintainer: Mark Brown <broonie@debian.org>
-Standards-Version: 3.8.3
+Standards-Version: 3.9.4
 Homepage: http://zlib.net/
-Build-Depends: debhelper (>= 8.1.3~), binutils (>= 2.18.1~cvs20080103-2) [mips mipsel], gcc-multilib [amd64 i386 kfreebsd-amd64 mips mipsel powerpc ppc64 s390 sparc s390x], dpkg-dev (>= 1.16.0)
+Build-Depends: debhelper (>= 8.1.3~), binutils (>= 2.18.1~cvs20080103-2) [mips mipsel], gcc-multilib [amd64 i386 kfreebsd-amd64 mips mipsel powerpc ppc64 s390 sparc s390x], dpkg-dev (>= 1.16.1)
 
 Package: zlib1g
 Architecture: any
@@ -41,15 +41,6 @@ Description: compression library - development
  zlib is a library implementing the deflate compression method found
  in gzip and PKZIP.  This package includes debugging symbols for use
  when debugging applications which use zlib.
-
-Package: zlib-bin
-Section: utils
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: compression library - sample programs
- Some generally useful sample programs from the contrib directory.
- Includes a "mini" implementation of `zip' and `unzip' called
- `minizip' and `miniunzip' respectively.
 
 Package: zlib1g-udeb
 XC-Package-Type: udeb

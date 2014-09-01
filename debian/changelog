@@ -1,3 +1,19 @@
+zlib (1:1.2.8.dfsg-2) unstable; urgency=low
+
+  * Drop zlib-bin package as minizip has now been packaged separately,
+    delay due to lack of notice regarding upload (closes: #753070).
+
+ -- Mark Brown <broonie@debian.org>  Sat, 16 Aug 2014 15:12:11 +0100
+
+zlib (1:1.2.8.dfsg-1) unstable; urgency=low
+
+  * New upstream release.
+  * Policy 3.9.4.
+  * Tweak version for gzseek64 and gztell64 (closes: #687076).
+  * Install zconf.h in multiarch path (closes: #698648).
+
+ -- Mark Brown <broonie@debian.org>  Fri, 03 May 2013 16:30:36 +0100
+
 zlib (1:1.2.7.dfsg-13) unstable; urgency=low
 
   * Yet more s390x cleanup.  Thanks to the s390x porters for thei
