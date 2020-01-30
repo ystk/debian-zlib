@@ -1,3 +1,17 @@
+zlib (1:1.2.8.dfsg-2+deb8u1) jessie-security; urgency=high
+
+  * Non-maintainer upload by the LTS Team.
+  * CVE-2016-9843
+    improper big-endian CRC calculation
+  * CVE-2016-9842
+    improper left shift of negative integers
+  * CVE-2016-9841
+    improper pointer arithmetic
+  * CVE-2016-9840
+    improper pointer arithmetic
+ 
+ -- Thorsten Alteholz <debian@alteholz.de>  Wed, 29 Jan 2020 19:03:02 +0100
+
 zlib (1:1.2.8.dfsg-2) unstable; urgency=low
 
   * Drop zlib-bin package as minizip has now been packaged separately,
