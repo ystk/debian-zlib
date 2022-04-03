@@ -1,3 +1,11 @@
+zlib (1:1.2.8.dfsg-2+deb8u2) jessie-security; urgency=medium
+
+  * Non-maintainer upload by the ELTS Security Team.
+  * CVE-2018-25032: Fix a bug that can crash deflate on some input
+    when using Z_FIXED
+
+ -- Anton Gladky <gladk@debian.org>  Sun, 03 Apr 2022 09:56:04 +0200
+
 zlib (1:1.2.8.dfsg-2+deb8u1) jessie-security; urgency=high
 
   * Non-maintainer upload by the LTS Team.
