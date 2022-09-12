@@ -1,3 +1,11 @@
+zlib (1:1.2.8.dfsg-2+deb8u3) jessie-security; urgency=medium
+
+  * Non-maintainer upload by the ELTS Team.
+  * CVE-2022-37434: heap buffer overflow via large gzip header extra
+    field (Closes: #1016710).
+
+ -- Emilio Pozuelo Monfort <pochu@debian.org>  Sun, 11 Sep 2022 10:58:34 +0200
+
 zlib (1:1.2.8.dfsg-2+deb8u2) jessie-security; urgency=medium
 
   * Non-maintainer upload by the ELTS Security Team.

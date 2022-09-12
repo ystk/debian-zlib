@@ -9,3 +9,5 @@ CVE-2016-9842.patch
 CVE-2016-9843.patch
 CVE-2018-25032.patch
 
+Fix-a-bug-when-getting-a-gzip-header-extra-field-wit.patch
+Fix-extra-field-processing-bug-that-dereferences-NUL.patch
